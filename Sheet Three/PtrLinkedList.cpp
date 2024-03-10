@@ -37,7 +37,7 @@ public:
     }
 
     int retrieve(Node* p) {
-        return (p != nullptr) ? p->data : -1; // Adjust as per your requirements
+        return (p != nullptr) ? p->data : -1;
     }
 
     void remove(Node* p) {
@@ -90,10 +90,10 @@ public:
     void print() {
         Node* current = head;
         while (current != nullptr) {
-            std::cout << current->data << " ";
+            cout << current->data << " ";
             current = current->next;
         }
-        std::cout << std::endl;
+        cout << endl;
     }
 
     Node* end() {
