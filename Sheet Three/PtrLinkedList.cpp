@@ -117,7 +117,95 @@ public:
     ~LinkedList() { //destructor (m5dnhash fl class joke)
         clear();
     }
+
+    // 1. PURGE: Eliminates duplicates from the list
+    void purge() {
+        Node* current = head;
+        while (current != nullptr && current->next != nullptr) {
+            Node* prev = current;
+            Node* next = current->next;
+            while (next != nullptr) {
+                if (next->data == current->data) {
+                    prev->next = next->next;
+                    delete next;
+                    next = prev->next;
+                } else {
+                    prev = next;
+                    next = next->next;
+                }
+            }
+            current = current->next;
+        }
+    }
+
+    // 2. REVERSE: Reverses the list
+    void reverse() {
+        Node* prev = nullptr;
+        Node* current = head;
+        Node* next;
+        while (current != nullptr) {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+    }
+
+    // 3. insertXafterY: Inserts x after the first occurrence of y
+    void insertXafterY(int x, int y) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data == y) {
+                Node* newNode = new Node(x);
+                newNode->next = current->next;
+                current->next = newNode;
+                return;
+            }
+            current = current->next;
+        }
+        // y not found, insert x at the end
+        insert(x, end());
+    }
+
+    // 4. concatenate: Concatenates two lists (this and another) !!this is copied
+    void concatenate(LinkedList& other) {
+        if (head == nullptr) {
+            head = other.head;
+            return;
+        }
+        Node* current = head;
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+        current->next = other.head;
+    }
+
+    // 5. split: Splits the list into two lists (odd and even)
+    void split(LinkedList& odd, LinkedList& even) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data % 2 != 0) {
+                odd.insert(current->data, odd.end());
+            } else {
+                even.insert(current->data, even.end());
+            }
+            current = current->next;
+        }
+    }
+
+    // 6. sum: Calculates the summation of all values in the list
+    int sum() {
+        Node* current = head;
+        int total = 0;
+        while (current != nullptr) {
+            total += current->data;
+            current = current->next;
+        }
+        return total;
+    }
 };
+
 
 int main() {
     LinkedList myList;
